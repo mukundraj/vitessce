@@ -37,8 +37,11 @@ const inject = {
     if(uIsExpressionMode) {
       float normalizedExpressionValue = expressionValue / 255.0;
       float scaledExpressionValue = (normalizedExpressionValue - uColorScaleRange[0]) / max(0.005, (uColorScaleRange[1] - uColorScaleRange[0]));
-      color.rgb = COLORMAP_FUNC(clamp(scaledExpressionValue, 0.0, 1.0)).rgb;
-    }
+      if (scaledExpressionValue > 0.0001)
+        color.rgb = COLORMAP_FUNC(clamp(scaledExpressionValue, 0.0, 1.0)).rgb;
+      else
+        color.rgb = vec3(0.7, 0.7, 0.7);
+      }
   `,
 };
 
